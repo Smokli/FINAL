@@ -1,0 +1,78 @@
+﻿ body * {
+            font-family: sans-serif;
+        }
+
+        #control-panel input[type="number"] {
+            width: 50px;
+        }
+
+        .menu-box {
+            display: inline-block;
+            width: 65px;
+        }
+
+        #crossword-wrapper {
+            margin: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid #999999;
+            width: 100%;
+            -webkit-user-select: none; /* Chrome all / Safari all */
+            -moz-user-select: none; /* Firefox all */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Likely future */
+        }
+
+        td {
+            border: 1px solid #999999;
+            text-align: center;
+            font-weight: bold;
+        }
+
+            td:not(.indexer) {
+                cursor: pointer;
+            }
+
+        table tr .num-indexer {
+            cursor: initial;
+        }
+
+        tbody td {
+            background-color: #FFF7BD;
+        }
+
+        .selected-letter {
+            background-color: #BFFA66;
+        }
+
+        td span {
+            opacity: 0;
+            width: 100%;
+            display: inline-block;
+        }
+
+        .edit-letter {
+            opacity: 1;
+        }
+
+        .revealed-letter {
+            background-color: #A5D4E8;
+        }
+
+        .num-indexer, .indexer {
+            font-size: 25px;
+        }
+
+        .num-indexer {
+            width: 40px;
+        }
+
+        img {
+            -webkit-transition: -webkit-transform 3s ease-out;
+        }
+
+        #greetings-dialog p, #bomb-dialog p, #joke-dialog p {
+            font-size: 45px;
+        }

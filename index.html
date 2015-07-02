@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Къци</title>
+    <script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <link href="scripts/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="scripts/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="scripts/jquery-ui.min.css" rel="stylesheet" />
+
+    <link href="css/crossword.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/csshake.min.css">
+</head>
+<body>
+    <button id="menu">Menu</button>
+    <div id="control-panel">
+        <div class="menu-box">width:</div><input type="number" value="16" min="5" max="500">
+        <div class="menu-box">font-size:</div><input type="number" id="font-size" value="60" min="5" max="500">
+        <br>
+        <div class="menu-box">height:</div><input type="number" value="7" min="3" max="300">
+
+        <div>
+            <button id="generate-crossword">Generate crossword</button>
+            <button id="edit-crossword" class="disabled" disabled>Edit</button>
+            <button id="clear-crossword" class="disabled" disabled>Clear</button>
+            <button id="start-game" class="disabled" disabled>Start</button>
+            <button id="save-template">Save template</button>
+            <input type="file" id="load-template">
+        </div>
+    </div>
+
+    <button id="wheel">Колелото на късмета</button><input type="password" id="pass-field" style="display:none; width:80px;" placeholder="парола">
+    <div id="wheel-image" style="display:none;">
+        <div style="font-size:35px; margin-bottom:-9px; margin-left:183px;">&#9660;</div>
+        <!--<img width="400" height="400" src="css/wheel.png" />-->
+
+    </div>
+
+    <div id="greetings-dialog">
+        <p>....................</p>
+    </div>
+
+    <div id="joke-dialog">
+        <p>Виц! Виц! Виц!</p>
+    </div>
+
+    <div id="bomb-dialog" title="Бомба брат! Седи си...">
+        <img src="css/bomb.jpg" width="600" height="600">
+    </div>
+
+    <a href="#" id="save-link" style="display:none;">save</a>
+
+    <script src="scripts/script.js">
+    </script>
+</body>
+</html>
