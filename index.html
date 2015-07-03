@@ -1,24 +1,27 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Къци</title>
     <script src="scripts/jquery-2.1.4.min.js"></script>
     <script src="scripts/jquery-ui.min.js"></script>
+    <meta charset="UTF-8">
+
+    <link href="scripts/jquery-ui.min.css" rel="stylesheet" />
     <link href="scripts/jquery-ui.structure.min.css" rel="stylesheet" />
     <link href="scripts/jquery-ui.theme.min.css" rel="stylesheet" />
-    <link href="scripts/jquery-ui.min.css" rel="stylesheet" />
 
+    <link href="css/csshake.min.css" rel="stylesheet" />
     <link href="css/crossword.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="css/csshake.min.css">
 </head>
 <body>
     <button id="menu">Menu</button>
     <div id="control-panel">
-        <div class="menu-box">width:</div><input type="number" value="16" min="5" max="500">
+        <div class="menu-box">width:</div><input type="number" value="14" min="5" max="500">
         <div class="menu-box">font-size:</div><input type="number" id="font-size" value="60" min="5" max="500">
+        <input type="text" id="folder" value="0" />
+        <input type="text" id="joke-nums" value="0" />
         <br>
-        <div class="menu-box">height:</div><input type="number" value="7" min="3" max="300">
+        <div class="menu-box">height:</div><input type="number" value="6" min="3" max="300">
 
         <div>
             <button id="generate-crossword">Generate crossword</button>
@@ -30,25 +33,32 @@
         </div>
     </div>
 
-    <button id="wheel">Колелото на късмета</button><input type="password" id="pass-field" style="display:none; width:80px;" placeholder="парола">
+    <button id="wheel">Колелото на късмета</button>
     <div id="wheel-image" style="display:none;">
-        <div style="font-size:35px; margin-bottom:-9px; margin-left:183px;">&#9660;</div>
-        <!--<img width="400" height="400" src="css/wheel.png" />-->
+        <div style="margin-bottom:-16px;">
+            <div id="arrow" style="font-size:70px;">&#9660;</div>
+        </div>
+        <img id="kuci-img" width="800" height="800" src="imgs/Kaci.png" />
 
     </div>
 
     <div id="greetings-dialog">
-        <p>....................</p>
+        <p>Къци Ви пожелава успешна игра!!</p>
     </div>
 
     <div id="joke-dialog">
+        <img id="joke-image" src="imgs/1.jpg" width="650" />
         <p>Виц! Виц! Виц!</p>
     </div>
 
     <div id="bomb-dialog" title="Бомба брат! Седи си...">
-        <img src="css/bomb.jpg" width="600" height="600">
+        <img src="imgs/bomb.jpg" width="600" height="600">
     </div>
 
+    <div id="timer-dialog">
+        <img id="timer-pictures" src="imgs/0/1.jpg" width="250">
+        <p style="font-size:70px; text-align:center; margin:0px;"></p>
+    </div>
     <a href="#" id="save-link" style="display:none;">save</a>
 
     <script src="scripts/script.js">

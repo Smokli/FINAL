@@ -25,6 +25,10 @@
             user-select: none; /* Likely future */
         }
 
+        tr:first-child{
+            height:40px;
+        }
+
         td {
             border: 1px solid #999999;
             text-align: center;

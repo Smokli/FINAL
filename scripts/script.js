@@ -3,10 +3,13 @@ var enableEdit = false;
 var showMenu = true;
 var isFirst = true;
 
+var picturesNum = 1;
+
 $('#menu').click(function () {
     showMenu = !showMenu;
     $('#control-panel').css('display', (showMenu ? '' : 'none'));
 });
+
 
 (function dialogs() {
 
@@ -27,9 +30,29 @@ $('#menu').click(function () {
     $('#joke-dialog').dialog({
         autoOpen: false,
         modal: true,
-        width: 435
+        width: 735,
+        close: function myfunction() {
+            openJokeDialog();
+        }
 
     });
+
+    $('#timer-dialog').dialog({
+        autoOpen: false,
+        //modal: true,
+        width: 320,
+        height: 415,
+        close: function (ev, ui) {
+            picturesNum += 1;
+            if (picturesNum >= 7) {
+                picturesNum = 1;
+            }
+            var folderNum = Number($('#folder').val()),
+                src = 'imgs/' + folderNum + '/' + picturesNum + '.jpg';
+            $('#timer-pictures').attr('src', src);
+        }
+    });
+
 }());
 
 
@@ -51,7 +74,9 @@ $(document).ready(function () {
     });
 
     //Spinning wheel animation;
-    $('img').click(function () {
+    $('#wheel-image').css('margin-left', window.innerWidth / 2 - 400);
+    $('#arrow').css('margin-left', 400 - 36);
+    $('#kuci-img').click(function () {
         var prevStyle = this.style['-webkit-transform'],
             prevDeg = Number(prevStyle.substring(7, (prevStyle.lastIndexOf(')') - 3)));
         this.removeAttribute('style');
@@ -101,30 +126,10 @@ $(document).ready(function () {
 
 });
 
-var showWheel = false,
-	showPass = false;
+var showWheel = false;
 $('#wheel').click(function () {
-    if ($('#wheel-image').css('display') === 'block') {
-        if (confirm('Hide wheel?')) {
-            $('#wheel-image').css('display', 'none');
-            showWheel = false;
-        }
-        return;
-    }
-    showPass = !showPass;
-    $('#pass-field').css('display', (showPass ? '' : 'none'));
-});
-
-$('#pass-field').on('keypress', function (ev) {
-    if ($('#wheel-image').css('display') === 'block') {
-        return;
-    }
-    var mins = new Date().getMinutes();
-    if (ev.keyCode === 13 && this.value === 'nebarai' + mins) {
-        $('#wheel-image').css('display', '')
-    } else if (ev.keyCode === 13) {
-        alert('Сори брат!');
-    }
+    showWheel = !showWheel;
+    $('#wheel-image').css('display', (showWheel ? 'block' : 'none'));
 });
 
 function generateCrossword(x, y, arr) {
@@ -158,6 +163,8 @@ function generateCrossword(x, y, arr) {
         }
         $('table').append(row);
     }
+    var rowHeight = $('tr').eq(1).css('height');
+    console.log(rowHeight);
 
     $('td').css('width', ($('table').width() / $('tr:nth-child(1) td').length) - 40);
     $('.num-indexer').css('width', '2%');
@@ -170,24 +177,28 @@ function generateCrossword(x, y, arr) {
         }
 
         if (this.className === 'selected-letter') {
-            if (isFirst && this.textContent != '*' && this.textContent != '!') {
-                $('#greetings-dialog').dialog('open');
-            }
-            isFirst = false;
 
-            if (this.textContent == '*') {
+            if (this.textContent == '*' || this.textContent == '💣') {
                 shakeScreen();
                 $('#bomb-dialog').dialog('open');
                 this.innerHTML = '<span>&#128163;</span>';
                 this.style.color = 'red';
-                this.style.fontSize = '46px';
+                this.style.fontSize = '70px';
+                this.style.height = rowHeight;
+                isFirst = false;
             }
 
-            if (this.textContent == '!') {
+            if (this.textContent == '!' || this.textContent == '☺') {
                 $('#joke-dialog').dialog('open');
                 this.innerHTML = '<span>&#9786;</span>';
                 this.style.color = 'green';
-                this.style.fontSize = '60px';
+                this.style.fontSize = '79px';
+                this.style.height = rowHeight;
+                isFirst = false;
+            }
+            if (isFirst) {
+                $('#greetings-dialog').dialog('open');
+                isFirst = false;
             }
 
             $(this).find('span').animate({
@@ -206,7 +217,6 @@ function generateCrossword(x, y, arr) {
         $(this).addClass('selected-letter');
         $prevLetter = $(this);
     });
-
 
     $('#edit-crossword').click(function () {
         if (!enableEdit) {
@@ -249,6 +259,36 @@ function shakeScreen() {
 
 }
 
+$(document.body).keydown(function (ev) {
+    if (ev.ctrlKey && ev.keyCode === 81) {
+        activateTimer();
+    }
+});
+
+function activateTimer() {
+    var start = 10,
+		text = $('#timer-dialog p');
+
+    picturesNum += 1;
+    if (picturesNum >= 7) {
+        picturesNum = 1;
+    }
+    var folderNum = Number($('#folder').val()),
+        src = 'imgs/' + folderNum + '/' + picturesNum + '.jpg';
+
+    text.html('10.0');
+    $('#timer-dialog').dialog('open');
+    var interval = setInterval(function () {
+        start -= 0.1;
+        text.html(start.toFixed(1));
+        if (start <= 0) {
+            clearInterval(interval);
+            $('#timer-pictures').attr('src', src);
+            text.html('Седи си');
+        }
+    }, 100)
+};
+
 function generateFirstRow(len) {
     var result = '<td class="indexer"></td>';
     for (var i = 1; i <= len; i++) {
@@ -262,6 +302,30 @@ function setHeights() {
     $('table span').css('height', height);
 }
 
+$('#folder').keyup(function () {
+    var folderNum = Number($('#folder').val()),
+        src = 'imgs/' + folderNum + '/' + picturesNum + '.jpg';
+    $('#timer-pictures').attr('src', src);
+});
 
+var jokeNum = 1;
+$('#joke-nums').keyup(function () {
+    var num = Number($(this).val());
+    jokeNum += num;
+    if (jokeNum >= 7) {
+        jokeNum = 1;
+    }
+    var src = 'imgs/' + jokeNum + '.jpg';
+    $('#joke-image').attr('src', src);
+});
+
+function openJokeDialog() {
+    jokeNum += 1;
+    if (jokeNum >= 7) {
+        jokeNum = 1;
+    }
+    var src = 'imgs/' + jokeNum + '.jpg';
+    $('#joke-image').attr('src', src);
+}
 
 
