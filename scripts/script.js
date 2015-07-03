@@ -321,7 +321,7 @@ $('#joke-nums').keyup(function () {
 
 function openJokeDialog() {
     jokeNum += 1;
-    if (jokeNum >= 7) {
+    if (jokeNum > 4) {
         jokeNum = 1;
     }
     var src = 'imgs/' + jokeNum + '.jpg';
